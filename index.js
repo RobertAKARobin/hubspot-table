@@ -5,8 +5,6 @@ var cookieParser = require('cookie-parser');
 var path = require('path');
 var dotenv = require('dotenv');
 
-var hsAPIWrapper = require('hubspot-api-wrapper');
-
 if(process.env['NODE_ENV'] != 'production'){
 	dotenv.config();
 	process.env.PORT = 3000;
@@ -14,17 +12,7 @@ if(process.env['NODE_ENV'] != 'production'){
 	console.log('Dev environment');
 }
 
-var hsOptions = {
-	'authEntryPoint': '/authorize',
-	'authExitPoint': '/',
-	'cookieName': 'access_token',
-	'client_id': process.env['CLIENT_ID'],
-	'client_secret': process.env['CLIENT_SECRET'],
-	'redirect_uri': process.env['REDIRECT_URI'],
-	'hapikey': process.env['HAPIKEY']
-};
-var HS = hsAPIWrapper(hsOptions);
-
+var HS = require('./hs.api');
 var httpServer = express();
 var baseServer = http.createServer(httpServer);
 
@@ -36,7 +24,7 @@ baseServer
 httpServer
 	.use(cookieParser())
 	.use(bodyParser.json())
-	.get(hsOptions.authEntryPoint, HS.auth.init)
+	.get(HS.options.authEntryPoint, HS.auth.init)
 	.get('/authorize/redirect', HS.auth.redirect)
 	.get('/authorize/reset', HS.auth.reset)
 	.use('/', express.static('./public'))
