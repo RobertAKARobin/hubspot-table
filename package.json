@@ -9,6 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "hubspot-api-wrapper": "git+https://github.com/robertAKARobin/hubspot-api-wrapper.git"
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "http": "0.0.0",
+    "hubspot-api-wrapper": "git+https://github.com/robertAKARobin/hubspot-api-wrapper.git",
+    "path": "^0.12.7"
   }
 }
