@@ -39,7 +39,9 @@ httpServer
 	.get(hsOptions.authEntryPoint, HS.auth.init)
 	.get('/authorize/redirect', HS.auth.redirect)
 	.get('/authorize/reset', HS.auth.reset)
+	.use('/', express.static('./public'))
 	.get('*', HS.auth.check)
+	.use('/', express.static('./views'))
 	.get('/owners',
 		HS.api({
 			method: 'GET',
